@@ -12,6 +12,8 @@ for my_test in my_tests
    catch e
       anyerrors = true
       println("\t\033[1m\033[31mFAILED\033[0m: $(my_test)")
+      showerror(STDOUT, e, backtrace())
+      println()
    end
 end
 
