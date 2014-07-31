@@ -4,11 +4,14 @@ module Brim
 using Cairo
 
 # Exports
-export Qr, recursive_brim
+export Modular,
+       recursive_brim, 
+       random_partition
 
 # Includes
 # include(joinpath(...))
-include(joinpath(".", "Q.jl"))
+include(joinpath(".", "Modular.jl"))
 include(joinpath(".", "recursive_brim.jl"))
+include(joinpath(".", "random_partition.jl"))
 
 end

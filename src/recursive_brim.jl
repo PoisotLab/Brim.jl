@@ -1,22 +1,14 @@
-function recursive_brim(A::Array{Int64, 2})
+function recursive_brim(M::Modular)
    #=
    Recursive BRIM as in Barber
    =#
 
-   # -1- Partitions at random
-   min_part = minimum(size(A))
-   S = zeros(Int64, sum(size(A)), min_part)
-   init_part = rand(1:1:min_part,sum(size(A)))
-   for i = 1:length(init_part)
-      S[i,init_part[i]] = 1
-   end
-
    # -2- R and T sub-matrices
-   n_rows, n_cols = size(A)
-   m = sum(A)
-   R = S[[1:n_cols],:]
-   T = S[[(n_cols+1):end],:]
-   B = A - kron(sum(A, 1), sum(A, 2)) ./ m
+   n_rows, n_cols = size(M.A)
+   m = sum(M.A)
+   R = M.S[[1:n_cols],:]
+   T = M.S[[(n_cols+1):end],:]
+   B = M.A - kron(sum(M.A, 1), sum(M.A, 2)) ./ m
 
    # -3- Recursive BRIM
    old_Q = 0.0
@@ -32,7 +24,7 @@ function recursive_brim(A::Array{Int64, 2})
    return {"Q"=>new_Q}
 end
 
-function bestPart!(Target::Array, Scores::Array)
+function bestPart!(Target::Array{Int64, 2}, Scores::Array{Float64, 2})
    best_scores = maximum(Scores, 2)
    @inbounds for i = 1:size(Target)[1]
       for c = 1:size(Scores)[2]
