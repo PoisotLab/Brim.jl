@@ -37,4 +37,11 @@ was applied.
 
 ## Graphics
 
-Not yet.
+Using the `draw_matrix` function, which takes a `Mdular` object as
+input. Currently very minimal, links from the same module are in black,
+others in grey.
+
+``` julia
+A = map((x) -> x<0.2?1:0, rand(20, 10))
+A |> partition_lp |> recursive_brim! |> draw_matrix
+```

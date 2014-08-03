@@ -9,7 +9,8 @@ export Modular,
        recursive_brim!, 
        partition_lp,
        partition_random,
-       partition_single
+       partition_single,
+       draw_matrix
 
 # Includes
 # include(joinpath(...))
@@ -19,5 +20,6 @@ include(joinpath(".", "recursive_brim.jl"))
 include(joinpath(".", "partition_lp.jl"))
 include(joinpath(".", "partition_random.jl"))
 include(joinpath(".", "partition_single.jl"))
+include(joinpath(".", "draw_matrix.jl"))
 
 end
