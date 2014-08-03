@@ -8,6 +8,7 @@ function draw_matrix(M::Modular; reorder::Function = (x) -> x, file="modular.png
    remove_empty_comms!(M)
    reorder(M)
    number_modules = size(M.S)[2]
+   module_blue = linspace(0.0, 1.0, number_modules)
    nbot, ntop = size(M.A)
    width  = 4 + nbot*(10+4)
    height = 4 + ntop*(10+4)
@@ -26,7 +27,8 @@ function draw_matrix(M::Modular; reorder::Function = (x) -> x, file="modular.png
       for bot in 1:nbot
          if M.A[bot,top] > 0
             if sum(M.S[top,:] .* M.S[bot+ntop,:]) > 0
-               set_source_rgb(cr, 0.0, 0.0, 0.0)
+               m_id = [1:number_modules]'[bool(M.S[top,:])][1]
+               set_source_rgb(cr, 0.0, 0.0, module_blue[m_id])
             else
                set_source_rgb(cr, 0.4, 0.4, 0.4)
             end
