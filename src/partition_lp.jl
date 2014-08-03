@@ -35,5 +35,6 @@ function partition_lp(A::Array{Int64, 2})
       old_Q = new_Q
       new_Q = Q(M)
    end
+   no_empty_modules!(M)
    return M
 end

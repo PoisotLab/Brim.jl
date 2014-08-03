@@ -2,10 +2,13 @@ module Brim
 
 # Dependencies
 using Cairo
+using Color
 
 # Exports
 export Modular,
        Q,
+       Qr,
+       no_empty_modules!,
        recursive_brim!, 
        partition_lp,
        partition_random,
@@ -16,6 +19,7 @@ export Modular,
 # Includes
 # include(joinpath(...))
 include(joinpath(".", "Modular.jl"))
+include(joinpath(".", "common.jl"))
 include(joinpath(".", "Q.jl"))
 include(joinpath(".", "recursive_brim.jl"))
 include(joinpath(".", "partition_lp.jl"))

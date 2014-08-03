@@ -1,11 +1,4 @@
-function remove_empty_comms!(M::Modular)
-   S = M.S
-   S = S[:,[1:size(S)[2]]'[sum(S,1).>0]]
-   M.S = S
-end
-
 function reorder_by_module!(M::Modular)
-   remove_empty_comms!(M)
    nA = zeros(M.A)
    nS = zeros(M.S)
    current_col = 1
@@ -34,10 +27,9 @@ function reorder_by_module!(M::Modular)
 end
 
 function draw_matrix(M::Modular; reorder::Function = reorder_by_module!, file="modular.png")
-   remove_empty_comms!(M)
    reorder(M)
    number_modules = size(M.S)[2]
-   module_blue = linspace(0.0, 1.0, number_modules)
+   module_color = distinguishable_colors(number_modules)
    nbot, ntop = size(M.A)
    width  = 4 + nbot*(10+4)
    height = 4 + ntop*(10+4)
@@ -57,9 +49,11 @@ function draw_matrix(M::Modular; reorder::Function = reorder_by_module!, file="m
          if M.A[bot,top] > 0
             if sum(M.S[top,:] .* M.S[bot+ntop,:]) > 0
                m_id = [1:number_modules]'[bool(M.S[top,:])][1]
-               set_source_rgb(cr, 0.0, 0.0, module_blue[m_id])
+               m_color = module_color[m_id]
+               println((m_id, number_modules))
+               set_source_rgb(cr,m_color.r, m_color.g, m_color.b)
             else
-               set_source_rgb(cr, 0.4, 0.4, 0.4)
+               set_source_rgb(cr, 0.6, 0.6, 0.6)
             end
             rectangle(cr, 4 + (bot-1)*14, 4 + (top-1)*14, 10, 10)
             fill(cr)

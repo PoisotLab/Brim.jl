@@ -5,5 +5,5 @@ function partition_random(A::Array{Int64, 2})
    for i = 1:length(init_part)
       S[i,init_part[i]] = 1
    end
-   return Modular(A, S)
+   return no_empty_modules!(Modular(A, S))
 end

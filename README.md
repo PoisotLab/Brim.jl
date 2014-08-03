@@ -15,7 +15,8 @@ and `IntegerModular`) stores `A` (the matrix) and `S`, the community partition.
 
 ``` julia
 using Brim
-eye(Int64, 100) |> random_partition |> recursive_brim! |> Q
+eye(Int64, 100) |> partition_random |> recursive_brim! |> Q
+eye(Int64, 100) |> partition_random |> recursive_brim! |> Qr
 ```
 
 ## Currently implemented
@@ -35,13 +36,21 @@ was applied.
 
 - `recursive_brim!`, recursive BRIM, as in the **xxx** paper
 
+### Modularity value
+
+- `Q`, bipartite modularity
+- `Qr`, realized bipartite modularity, as in **xxx**
+
 ## Graphics
 
-Using the `draw_matrix` function, which takes a `Mdular` object as
-input. Currently very minimal, links from the same module are in black,
-others in grey.
+Using the `draw_matrix` function, which takes a `Modular` object as
+input. Currently very minimal, links from the same module are in color, each
+module has it own color, arcs between nodes from different modules are in grey.
+
+The scale of the picture will change, each node occupies 10px + 2px on
+each side.
 
 ``` julia
-A = map((x) -> x<0.2?1:0, rand(20, 10))
+A = map((x) -> x<0.2?1:0, rand(50, 100))
 A |> partition_lp |> recursive_brim! |> draw_matrix
 ```
