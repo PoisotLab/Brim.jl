@@ -1,4 +1,4 @@
-function recursive_brim(M::Modular)
+function recursive_brim!(M::Modular)
    #=
    Recursive BRIM as in Barber
    =#
@@ -21,7 +21,9 @@ function recursive_brim(M::Modular)
       old_Q = new_Q
       new_Q = maximum(map((x) -> x/m, [sum((B'*T) .* R), sum((B*R) .* T)]))
    end
-   return {"Q"=>new_Q}
+   M.S[[1:n_cols],:] = R
+   M.S[[(n_cols+1):end],:] = T
+   return M
 end
 
 function bestPart!(Target::Array{Int64, 2}, Scores::Array{Float64, 2})

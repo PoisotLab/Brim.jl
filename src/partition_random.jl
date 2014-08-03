@@ -1,4 +1,4 @@
-function random_partition(A::Array{Int64, 2})
+function partition_random(A::Array{Int64, 2})
    min_part = minimum(size(A))
    S = zeros(Int64, sum(size(A)), min_part)
    init_part = rand(1:1:min_part,sum(size(A)))

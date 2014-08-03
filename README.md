@@ -15,19 +15,25 @@ and `IntegerModular`) stores `A` (the matrix) and `S`, the community partition.
 
 ``` julia
 using Brim
-eye(Int64, 100) |> random_partition |> recursive_brim
+eye(Int64, 100) |> random_partition |> recursive_brim! |> Q
 ```
 
 ## Currently implemented
 
+Functions for initial module assigment accept a two-dimensional array as input,
+and return a `Modular` object. Function for modularity optimization accept
+a `Modular` object as input and return this object after the optimization
+was applied.
+
 ### Initial module assignment
 
 - `partition_random`, attributes all nodes to a module at random
-- `partition_lp`, *not yet*
+- `partition_lp`, uses asynchronous label propagation to estimate the starting partition
+- `partition_single`, each node is its own label
 
 ### Modularity optimization
 
-- `recursive_brim`, recursive BRIM, as in the **xxx** paper
+- `recursive_brim!`, recursive BRIM, as in the **xxx** paper
 
 ## Graphics
 
