@@ -4,7 +4,36 @@ function remove_empty_comms!(M::Modular)
    M.S = S
 end
 
-function draw_matrix(M::Modular; reorder::Function = (x) -> x, file="modular.png")
+function reorder_by_module!(M::Modular)
+   remove_empty_comms!(M)
+   nA = zeros(M.A)
+   nS = zeros(M.S)
+   current_col = 1
+   current_row = 1
+   ncol = size(nA)[2]
+   for m in 1:size(nS)[2]
+      for col in 1:size(nA)[2]
+         if M.S[col,m] > 0
+            nA[:,current_col] = M.A[:,col]
+            nS[current_col,:] = M.S[col,:]
+            current_col += 1
+         end
+      end
+   end
+   for m in 1:size(nS)[2]
+      for row in 1:size(nA)[1]
+         if M.S[row+ncol,m] > 0
+            nA[current_row,:] = M.A[row,:]
+            nS[current_row+ncol,:] = M.S[row+ncol,:]
+            current_row += 1
+         end
+      end
+   end
+   M.A = nA
+   M.S = nS
+end
+
+function draw_matrix(M::Modular; reorder::Function = reorder_by_module!, file="modular.png")
    remove_empty_comms!(M)
    reorder(M)
    number_modules = size(M.S)[2]

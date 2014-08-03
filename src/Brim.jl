@@ -10,6 +10,7 @@ export Modular,
        partition_lp,
        partition_random,
        partition_single,
+       reorder_by_module!,
        draw_matrix
 
 # Includes
