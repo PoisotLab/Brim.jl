@@ -50,7 +50,6 @@ function draw_matrix(M::Modular; reorder::Function = reorder_by_module!, file="m
             if sum(M.S[top,:] .* M.S[bot+ntop,:]) > 0
                m_id = [1:number_modules]'[bool(M.S[top,:])][1]
                m_color = module_color[m_id]
-               println((m_id, number_modules))
                set_source_rgb(cr,m_color.r, m_color.g, m_color.b)
             else
                set_source_rgb(cr, 0.6, 0.6, 0.6)
