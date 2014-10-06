@@ -14,7 +14,8 @@ export Modular,
        partition_random,
        partition_single,
        reorder_by_module!,
-       draw_matrix
+       draw_matrix,
+       network_roles
 
 # Includes
 include(joinpath(".", "Modular.jl"))
@@ -25,5 +26,6 @@ include(joinpath(".", "partition_lp.jl"))
 include(joinpath(".", "partition_random.jl"))
 include(joinpath(".", "partition_single.jl"))
 include(joinpath(".", "draw_matrix.jl"))
+include(joinpath(".", "network_roles.jl"))
 
 end
