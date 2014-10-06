@@ -17,6 +17,8 @@ and `IntegerModular`) stores `A` (the matrix) and `S`, the community partition.
 using Brim
 eye(Int64, 100) |> partition_random |> recursive_brim! |> Q
 eye(Int64, 100) |> partition_random |> recursive_brim! |> Qr
+# Best value out of 100 trials
+maximum([eye(Int64, 100) |> partition_random |> recursive_brim! |> Q for i in 1:100])
 ```
 
 ## Currently implemented
@@ -28,9 +30,9 @@ was applied.
 
 ### Initial module assignment
 
-- `partition_random`, attributes all nodes to a module at random
-- `partition_lp`, uses asynchronous label propagation to estimate the starting partition
-- `partition_single`, each node is its own label
+- `partition_random`, attributes all nodes to a module at random (good default)
+- `partition_lp`, uses asynchronous label propagation to estimate the starting partition (good for large networks)
+- `partition_single`, each node is its own label (good default if you assume a lot of modules)
 
 ### Modularity optimization
 
