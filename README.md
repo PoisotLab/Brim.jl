@@ -21,6 +21,16 @@ eye(Int64, 100) |> partition_random |> recursive_brim! |> Qr
 maximum([eye(Int64, 100) |> partition_random |> recursive_brim! |> Q for i in 1:100])
 ```
 
+As a lot of iterations may be needed to get the optimal value, it makes
+sense to use the code in a parallel context:
+
+~~~ julia
+# Use julia -p n where n is the number of cores to use
+@everywhere using Brim
+@everywhere qoptim = (x) -> x |> partition_random |> recursive_brim! |> Q
+Qs = pmap(qoptim, [eye(Int64, 100) for i=1:100])
+~~~
+
 ## Currently implemented
 
 Functions for initial module assigment accept a two-dimensional array as input,
