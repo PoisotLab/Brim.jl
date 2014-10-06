@@ -3,7 +3,7 @@ using Brim
 
 anyerrors = false
 
-my_tests = ["recursive_brim.jl"]
+my_tests = ["recursive_brim.jl", "no_empty_modules.jl"]
 
 for my_test in my_tests
    try
