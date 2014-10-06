@@ -3,6 +3,7 @@ module Brim
 # Dependencies
 using Cairo
 using Color
+using DataFrames
 
 # Exports
 export Modular,

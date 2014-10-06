@@ -40,5 +40,10 @@ function network_roles(M::Modular)
       c = 1-sum((km./k).^2)
       roles[(nc+row),2] = c
    end
-   return roles
+   roles_df = DataFrame(id = append!([1:nc], [1:nr]),
+                        margin = append!(rep("col", nc), rep("row", nr)),
+                        z = roles[:,1],
+                        c = roles[:,2]
+                        )
+   return roles_df
 end
