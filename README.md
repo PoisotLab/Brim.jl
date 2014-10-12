@@ -3,8 +3,8 @@
 Various ways to optimize the modularity of bipartite networks using BRIM in
 `Julia`.
 
-[![Coverage Status](https://coveralls.io/repos/tpoisot/lp-brim/badge.png)](https://coveralls.io/r/tpoisot/lp-brim)
 [![Build Status](https://travis-ci.org/tpoisot/brim.jl.svg)](https://travis-ci.org/tpoisot/brim.jl)
+[![Coverage Status](https://coveralls.io/repos/tpoisot/brim.jl/badge.png)](https://coveralls.io/r/tpoisot/brim.jl)
 
 ## Interface
 
