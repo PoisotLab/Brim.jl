@@ -3,6 +3,9 @@
 Various ways to optimize the modularity of bipartite networks using BRIM in
 `Julia`.
 
+[![Build Status](https://travis-ci.org/tpoisot/brim.jl.svg)](https://travis-ci.org/tpoisot/brim.jl)
+[![Coverage Status](https://coveralls.io/repos/tpoisot/brim.jl/badge.png)](https://coveralls.io/r/tpoisot/brim.jl)
+
 ## Interface
 
 There are two types of functions: those to determine the initial community
