@@ -9,5 +9,5 @@ module TestPartitionSingle
 
   # The modularity should the diagonal matrix
   @test sum(abs(M.S .- S)) == 0
-  
+
 end
