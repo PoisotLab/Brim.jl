@@ -1,10 +1,10 @@
 # BRIM modularity
 
+[![Build Status](https://travis-ci.org/PoisotLab/Brim.jl.svg?branch=master)](https://travis-ci.org/PoisotLab/Brim.jl)
+[![Coverage Status](https://coveralls.io/repos/PoisotLab/Brim.jl/badge.svg?branch=master)](https://coveralls.io/r/PoisotLab/Brim.jl?branch=master)
+
 Various ways to optimize the modularity of bipartite networks using BRIM in
 `Julia`.
-
-[![Build Status](https://travis-ci.org/tpoisot/Brim.jl.svg)](https://travis-ci.org/tpoisot/Brim.jl)
-[![Coverage Status](https://coveralls.io/repos/tpoisot/Brim.jl/badge.png)](https://coveralls.io/r/tpoisot/Brim.jl)
 
 ## Interface
 
