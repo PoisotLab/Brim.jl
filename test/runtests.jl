@@ -3,7 +3,12 @@ using Brim
 
 anyerrors = false
 
-my_tests = ["recursive_brim.jl", "no_empty_modules.jl", "reorder_by_module.jl", "network_roles.jl", "Qr.jl"]
+my_tests = ["recursive_brim.jl",
+  "no_empty_modules.jl",
+  "reorder_by_module.jl",
+  "network_roles.jl",
+  "partition_single.jl",
+  "Qr.jl"]
 
 for my_test in my_tests
    try

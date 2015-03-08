@@ -1,4 +1,4 @@
-module TestReoderByModule
+module TestReorderByModule
    using Base.Test
    using Brim
    #=testdir = dirname(@__FILE__)=#
