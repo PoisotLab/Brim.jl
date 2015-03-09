@@ -8,6 +8,7 @@ my_tests = ["recursive_brim.jl",
   "reorder_by_module.jl",
   "network_roles.jl",
   "partition_single.jl",
+  "partition_lp.jl"
   "Qr.jl"]
 
 for my_test in my_tests
