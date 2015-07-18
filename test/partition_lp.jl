@@ -7,7 +7,7 @@ module TestPartitionLp
 
   M = partition_lp(A)
 
-  # The modularity should the diagonal matrix
+  # The modularity should be the diagonal matrix
   @test sum(abs(M.S .- S)) == 0
 
   # The original adjacency matrix should not change

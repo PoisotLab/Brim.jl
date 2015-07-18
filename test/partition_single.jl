@@ -7,7 +7,7 @@ module TestPartitionSingle
 
   M = partition_single(A)
 
-  # The modularity should the diagonal matrix
+  # The modularity should be the diagonal matrix
   @test sum(abs(M.S .- S)) == 0
 
 end

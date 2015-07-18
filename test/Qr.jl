@@ -5,6 +5,6 @@ module TestQrValue
    A = [[1 0 0], [0 1 0], [0 0 1]]
    S = [[1 0 0], [0 1 0], [0 0 1], [1 0 0], [0 1 0], [0 0 1]]
    M = Modular(A, S)
-   ## Approximate values, calculated by hand
+   # Approximate values, calculated by hand
    @test M |> Qr == 1.0
 end
