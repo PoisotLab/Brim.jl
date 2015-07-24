@@ -1,22 +1,12 @@
-language: cpp
-compiler:
-    - gcc
-notifications:
-    email: false
-env:
-  matrix:
-    - JULIAVERSION="juliareleases"
-    - JULIAVERSION="julianightlies"
-before_install:
-    - sudo add-apt-repository ppa:staticfloat/julia-deps -y
-    - sudo add-apt-repository ppa:staticfloat/${JULIAVERSION} -y
-    - sudo apt-get update -qq -y
-    - sudo apt-get install git libpcre3-dev julia -y
-    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+language: julia
+sudo: false
+julia:
+  - release
+  - nightly
 script:
-    - julia -e 'versioninfo(); Pkg.init(); Pkg.clone(pwd());'
-    - julia --code-coverage test/runtests.jl
+  - julia -e 'versioninfo(); Pkg.init(); Pkg.clone(pwd()); Pkg.build("$name")'
+  - julia --code-coverage test/runtests.jl
 after_success:
-    - julia -e 'cd(Pkg.dir("Brim")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
+  - julia -e 'cd(Pkg.dir("Brim")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder()); Codecov.submit(Codecov.process_folder())'
 notifications:
   slack: poisotlab:vZrPMJvEwUSgXFBzstIvhRnX
