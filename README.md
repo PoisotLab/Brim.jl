@@ -83,6 +83,8 @@ A |> partition_lp |> recursive_brim! |> draw_matrix
 The `Brim` package offers a (currently limited) way to do significance testing
 using permutations with null models.
 
+### Interface
+
 For example, the following lines will first measure modularity on the original
 data, then measure modularity on a permutation of `A` with the same number of
 ones.
@@ -93,16 +95,18 @@ A |> partition_lp |> recursive_brim! |> Q
 A |> null_preserve_fill |> partition_lp |> recursive_brim! |> Q
 ```
 
-Note that the `null_*` functions can also be applied on `Modular` objects, in
-which case the `A` matrix is shuffled, but the `S` matrix (community partition)
-is kept constant. This allows to test how well a particular interaction
-structure matches a community partition:
+Because the `null_*` functions return matrices with at least one interaction in
+all rows and columns, they can take a while to run. None of these functions are
+(currently) optimized (*i.e* the algorithm is very terrible).
+
+### Example
 
 ``` julia
-A = map((x) -> x<0.2?1:0, rand(50, 100))
-A |> partition_lp |> recursive_brim! |> Q
-A |> partition_lp |> recursive_brim! |> null_preserve_fill |> Q
+A = map((x) -> x<0.2?1:0, rand(80, 90))
+n_samples = 50
+empirical_q = A |> partition_lp |> recursive_brim! |> Q
+# The next line would benefit from being run using pmap
+shuffled_q = map((x) -> A |> null_preserve_fill |> partition_lp |> recursive_brim! |> Q, 1:n_samples)
+# (APPROXIMATION of the p-value for the hypothesis that empirical_Q > random_Q)
+pvalue = sum(empirical_q .<= shuffled_q) / n_samples
 ```
-
-Because the `null_*` functions return matrices with at least one interaction in
-all rows and columns, they can take a while to run.
