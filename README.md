@@ -77,3 +77,32 @@ each side.
 A = map((x) -> x<0.2?1:0, rand(50, 100))
 A |> partition_lp |> recursive_brim! |> draw_matrix
 ```
+
+## Significance testing
+
+The `Brim` package offers a (currently limited) way to do significance testing
+using permutations with null models.
+
+For example, the following lines will first measure modularity on the original
+data, then measure modularity on a permutation of `A` with the same number of
+ones.
+
+``` julia
+A = map((x) -> x<0.2?1:0, rand(50, 100))
+A |> partition_lp |> recursive_brim! |> Q
+A |> null_preserve_fill |> partition_lp |> recursive_brim! |> Q
+```
+
+Note that the `null_*` functions can also be applied on `Modular` objects, in
+which case the `A` matrix is shuffled, but the `S` matrix (community partition)
+is kept constant. This allows to test how well a particular interaction
+structure matches a community partition:
+
+``` julia
+A = map((x) -> x<0.2?1:0, rand(50, 100))
+A |> partition_lp |> recursive_brim! |> Q
+A |> partition_lp |> recursive_brim! |> null_preserve_fill |> Q
+```
+
+Because the `null_*` functions return matrices with at least one interaction in
+all rows and columns, they can take a while to run.
