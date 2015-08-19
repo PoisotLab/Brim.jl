@@ -24,7 +24,8 @@ export Modular,
        draw_matrix,
        network_roles,
        null_preserve_marginals,
-       null_preserve_rows_marginals
+       null_preserve_rows_marginals,
+       null_preserve_columns_marginals
 
 # Includes
 include(joinpath(".", "Modular.jl"))

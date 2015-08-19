@@ -11,15 +11,35 @@ function same_row_marginals(A::Array{Int64, 2}, B::Array{Int64, 2})
 end
 
 """
-Checks that the matrix is swapable, i.e. one of the two conformations called c1
-and c2.
+Checks that the matrix is swapable under constrained permutations, i.e. one of
+the two conformations called c1 and c2.
 """
-function swapable(A::Array{Int64, 2})
+function constrained_swapable(A::Array{Int64, 2})
   @assert size(A) == (2, 2)
   const c1 = [1 0; 0 1]
   const c2 = [0 1; 1 0]
   return (A == c1) | (A == c2)
 end
+
+"""
+Checks that the matrix is swapable under free permutations, i.e. it has
+at least one non-zero element, and at least one zero element.
+
+This check is necessary because if not, the free swaps will collect all ones in
+a few rows / columns, which results in very blocky (and therefore biased)
+matrices. As a consequence, all sub-matrices that are "constrained swapable" are
+"free swapable" too, but the reciprocal is not true.
+
+Because more sub-matrices are free swapable, and because there are higher order
+constraints on the acceptable swapped matrices.
+
+Also, this is a serious lot of documentation in a function that is not exported.
+"""
+function free_swapable(A::Array{Int64, 2})
+  @assert size(A) == (2, 2)
+  return (sum(A) >= 1) & (sum(A) <= 3)
+end
+
 
 """
 Performs a constrained swap: the marginals are conserved.
@@ -58,7 +78,7 @@ function null_preserve_marginals(A::Array{Int64, 2})
     rows = StatsBase.sample(1:size(A,1), 2, replace=false)
     cols = StatsBase.sample(1:size(A,2), 2, replace=false)
     # Only if the submatrix is swapable do we actually swap it
-    if swapable(A[rows,cols])
+    if constrained_swapable(A[rows,cols])
       dswaps += 1
       A[rows,cols] = constrained_swap(A[rows,cols])
     end
@@ -86,7 +106,7 @@ function null_preserve_rows_marginals(A::Array{Int64, 2})
     rows = StatsBase.sample(1:size(A,1), 2, replace=false)
     cols = StatsBase.sample(1:size(A,2), 2, replace=false)
     # Only if the submatrix is swapable do we actually swap it
-    if swapable(A[rows,cols])
+    if free_swapable(A[rows,cols])
       subA = free_swap(A[rows,cols])
       B = copy(A) # NOTE this may not be optimal because it moves potentially large objects in memory
       B[rows,cols] = subA
