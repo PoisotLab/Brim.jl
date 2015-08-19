@@ -73,12 +73,3 @@ kato_partitions_Q = map(Q, kato_partitions)
 Most of the times, this will give an array of 50 identical (or very close)
 values. This is because the modular structure of this network is rather easy to
 optimize.
-
-Let us then pick the first partition, and visualize it:
-
-```julia
-draw_matrix(kato_partitions[1])
-```
-
-This function may take a little while to run, but it should result in the
-apparition of a new file, called `modular.png`, within your working directory.

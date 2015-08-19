@@ -16,5 +16,6 @@ pages:
     - Visualizations: intro/visualization.md
   - Examples:
     - Modularity of a large network: examples/kato.md
+    - Permutations: examples/inouyepike.md
   - API: api.md
   - How to contribute: contr.md
