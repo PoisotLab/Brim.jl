@@ -2,6 +2,7 @@ site_name:           Brim.jl
 site_description:    Optimization and significance testing of bipartite modularity.
 repo_url:            https://github.com/PoisotLab/Brim.jl
 site_author:         Timothée Poisot
+theme:               yeti
 markdown_extensions:
   - tables
   - fenced_code
@@ -13,5 +14,6 @@ pages:
     - Optimization and measure: intro/optimize.md
     - Network roles: intro/roles.md
     - Permutations: intro/permut.md
+    - Visualizations: intro/visualization.md
   - API: api.md
   - How to contribute: contr.md
