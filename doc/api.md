@@ -75,6 +75,24 @@ cannot have empty rows or columns.
 
 ---
 
+<a id="method__partition_lp.1" class="lexicon_definition"></a>
+#### partition_lp(A::Array{Int64, 2}) [¶](#method__partition_lp.1)
+
+Propagate labels to reach the starting partition. Takes an adjacency matrix
+as input and returns a `Modular` object as output.
+
+This approach works better for large graphs (it tends to underperform both the
+"random" and "single" approaches for small graphs).
+
+The optimization stops when any label propagation fails to increase the
+modularity, measured with `Q`.
+
+
+*source:*
+[Brim/src/partition_lp.jl:11](file:///home/tpoisot/.julia/v0.3/Brim/src/partition_lp.jl)
+
+---
+
 <a id="method__reorder_by_module.1" class="lexicon_definition"></a>
 #### reorder_by_module!(M::Modular) [¶](#method__reorder_by_module.1)
 

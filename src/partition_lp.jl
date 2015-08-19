@@ -1,3 +1,13 @@
+"""
+Propagate labels to reach the starting partition. Takes an adjacency matrix
+as input and returns a `Modular` object as output.
+
+This approach works better for large graphs (it tends to underperform both the
+"random" and "single" approaches for small graphs).
+
+The optimization stops when any label propagation fails to increase the
+modularity, measured with `Q`.
+"""
 function partition_lp(A::Array{Int64, 2})
    nr, nc = size(A)
    min_part = minimum(size(A))
