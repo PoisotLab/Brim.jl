@@ -9,6 +9,7 @@ my_tests = ["recursive_brim.jl",
   "network_roles.jl",
   "partition_single.jl",
   "partition_lp.jl",
+  "permutations.jl",
   "Qr.jl"]
 
 for my_test in my_tests
