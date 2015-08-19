@@ -1,7 +1,6 @@
-## Significance testing
-
 The `Brim` package offers a (currently limited) way to do significance testing
-using permutations with null models.
+using permutations with null models. Events during the permutation process are
+logged every two minutes.
 
 ### Interface
 

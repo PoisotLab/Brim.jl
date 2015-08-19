@@ -73,6 +73,7 @@ function null_preserve_marginals(A::Array{Int64, 2})
   nswaps = int(maximum([prod(size(A))/4 * 100, 30000.0]))
   dswaps = 0 # Done swaps
   tswaps = 0 # Attempted swaps
+  START_TIME = time()
   while dswaps < nswaps
     tswaps += 1
     rows = StatsBase.sample(1:size(A,1), 2, replace=false)
@@ -82,9 +83,10 @@ function null_preserve_marginals(A::Array{Int64, 2})
       dswaps += 1
       A[rows,cols] = constrained_swap(A[rows,cols])
     end
-    # Logging every 1000 attempts
-    if tswaps % 1000 == 0
-      Logging.info("SWAP MARGINS A:", tswaps, " D:", dswaps)
+    # Logging every 2 minutes (or so)
+    if time() - START_TIME >= 120
+      Logging.info("SWAP TOTAL MARGINS -- A:", tswaps, " D:", dswaps)
+      START_TIME = time()
     end
   end
   return A
@@ -101,6 +103,7 @@ function null_preserve_rows_marginals(A::Array{Int64, 2})
   nswaps = int(maximum([prod(size(A))/4 * 100, 30000.0]))
   dswaps = 0 # Done swaps
   tswaps = 0 # Attempted swaps
+  START_TIME = time()
   while dswaps < nswaps
     tswaps += 1
     rows = StatsBase.sample(1:size(A,1), 2, replace=false)
@@ -115,9 +118,10 @@ function null_preserve_rows_marginals(A::Array{Int64, 2})
         dswaps += 1
       end
     end
-    # Logging every 1000 attempts
-    if tswaps % 1000 == 0
-      Logging.info("SWAP ROWS A:", tswaps, " D:", dswaps)
+    # Logging every 2 minutes (or so)
+    if time() - START_TIME >= 120
+      Logging.info("SWAP PARTIAL MARGINS -- A:", tswaps, " D:", dswaps)
+      START_TIME = time()
     end
   end
   return A
