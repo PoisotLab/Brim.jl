@@ -11,7 +11,7 @@ pages:
   - User manual:
     - Initial partition: intro/partitions.md
     - Optimization and measure: intro/optimize.md
-    - Network roles: roles.md
-    - Permutations: permut.md
+    - Network roles: intro/roles.md
+    - Permutations: intro/permut.md
   - API: api.md
   - How to contribute: contr.md
