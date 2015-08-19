@@ -1,51 +1,111 @@
-function is_filled(X::Array{Int64, 2})
-  return prod(sum(X, 1)) * prod(sum(X, 2)) > 0
+function no_empty_rows(A::Array{Int64, 2})
+  return prod(sum(A, 2)) > 0
 end
 
-function have_same(X::Array{Int64, 2}, Y::Array{Int64, 2}, what::ASCIIString)
-  same = false
-  if what == "fill"
-    same = sum(X) == sum(Y)
-  end
-  if what == "rowdegree"
-    same = sum(X, 2) == sum(Y, 2)
-  end
-  if what == "coldegree"
-    same = sum(X, 1) == sum(Y, 1)
-  end
-  if what == "degree"
-    same = (sum(X, 1) == sum(Y, 1)) & (sum(X, 2) == sum(Y, 2))
-  end
-  return same
+function no_empty_columns(A::Array{Int64, 2})
+  return prod(sum(A, 1)) > 0
 end
 
-function null_common_interface(A::Array{Int64, 2}, what::ASCIIString)
-  n_ones = sum(A)
-  n_zeroes = prod(size(A)) - n_ones
-  keep_on = true
-  candidate = zeros(A)
-  while keep_on
-    flat = shuffle([zeros(Int64, n_zeroes), ones(Int64, n_ones)])
-    candidate = reshape(flat, size(A))
-    if is_filled(candidate) & have_same(A, candidate, what)
-      keep_on = false
+function same_row_marginals(A::Array{Int64, 2}, B::Array{Int64, 2})
+  return sum(A, 2) == sum(B, 2)
+end
+
+"""
+Checks that the matrix is swapable, i.e. one of the two conformations called c1
+and c2.
+"""
+function swapable(A::Array{Int64, 2})
+  @assert size(A) == (2, 2)
+  const c1 = [1 0; 0 1]
+  const c2 = [0 1; 1 0]
+  return (A == c1) | (A == c2)
+end
+
+"""
+Performs a constrained swap: the marginals are conserved.
+"""
+function constrained_swap(A::Array{Int64, 2})
+  # TODO checks
+  const c1 = [1 0; 0 1]
+  const c2 = [0 1; 1 0]
+  if A == c2
+    return c1
+  else A == c1
+    return c2
+  end
+end
+
+"""
+Perfoms a free swap: the matrix cells are shuffled. The marginals are not
+(necessarily) conserved.
+"""
+function free_swap(A::Array{Int64, 2})
+  return reshape(A[shuffle([1, 2, 3, 4])], (2, 2))
+end
+
+"""
+Performs 2x2 swaps of a matrix by preserving the marginal totals (degree of the
+network). The product of the matrix size (rows x columns) divided by four, times
+100, is used as a number of swaps. If this number is less than 30000, then the
+model performs 30000 swaps.
+"""
+function null_preserve_marginals(A::Array{Int64, 2})
+  nswaps = int(maximum([prod(size(A))/4 * 100, 30000.0]))
+  dswaps = 0 # Done swaps
+  tswaps = 0 # Attempted swaps
+  while dswaps < nswaps
+    tswaps += 1
+    rows = StatsBase.sample(1:size(A,1), 2, replace=false)
+    cols = StatsBase.sample(1:size(A,2), 2, replace=false)
+    # Only if the submatrix is swapable do we actually swap it
+    if swapable(A[rows,cols])
+      dswaps += 1
+      A[rows,cols] = constrained_swap(A[rows,cols])
+    end
+    # Logging every 1000 attempts
+    if tswaps % 1000 == 0
+      Logging.info("SWAP MARGINS A:", tswaps, " D:", dswaps)
     end
   end
-  return candidate
+  return A
 end
 
-function null_preserve_fill(A::Array{Int64, 2})
-  return null_common_interface(A, "fill")
+"""
+Performs 2x2 swaps of a matrix by preserving the marginal totals of ROWS only.
+The product of the matrix size (rows x columns) divided by four, times 100, is
+used as a number of swaps. If this number is less than 30000, then the model
+performs 30000 swaps. The rows marginals are constant, and the returned matrix
+cannot have empty rows or columns.
+"""
+function null_preserve_rows_marginals(A::Array{Int64, 2})
+  nswaps = int(maximum([prod(size(A))/4 * 100, 30000.0]))
+  dswaps = 0 # Done swaps
+  tswaps = 0 # Attempted swaps
+  while dswaps < nswaps
+    tswaps += 1
+    rows = StatsBase.sample(1:size(A,1), 2, replace=false)
+    cols = StatsBase.sample(1:size(A,2), 2, replace=false)
+    # Only if the submatrix is swapable do we actually swap it
+    if swapable(A[rows,cols])
+      subA = free_swap(A[rows,cols])
+      B = copy(A) # NOTE this may not be optimal because it moves potentially large objects in memory
+      B[rows,cols] = subA
+      if no_empty_rows(B) & no_empty_columns(B) & same_row_marginals(A, B)
+        A = copy(B)
+        dswaps += 1
+      end
+    end
+    # Logging every 1000 attempts
+    if tswaps % 1000 == 0
+      Logging.info("SWAP ROWS A:", tswaps, " D:", dswaps)
+    end
+  end
+  return A
 end
 
-function null_preserve_rowdegree(A::Array{Int64, 2})
-  return null_common_interface(A, "rowdegree")
-end
-
-function null_preserve_coldegree(A::Array{Int64, 2})
-  return null_common_interface(A, "coldegree")
-end
-
-function null_preserve_degree(A::Array{Int64, 2})
-  return null_common_interface(A, "degree")
+"""
+Calls `null_preserve_rows_marginals` on `A'`.
+"""
+function null_preserve_columns_marginals(A::Array{Int64, 2})
+  return null_preserve_rows_marginals(A')'
 end

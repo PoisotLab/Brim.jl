@@ -4,6 +4,12 @@ module Brim
 using Cairo
 using Color
 using DataFrames
+using Logging
+Logging.configure(output=open("brim.log", "a"), level=INFO)
+
+using StatsBase
+
+VERSION < v"0.4-dev" && import Lexicon
 
 # Exports
 export Modular,
@@ -17,7 +23,8 @@ export Modular,
        reorder_by_module!,
        draw_matrix,
        network_roles,
-       null_preserve_fill
+       null_preserve_marginals,
+       null_preserve_rows_marginals
 
 # Includes
 include(joinpath(".", "Modular.jl"))
