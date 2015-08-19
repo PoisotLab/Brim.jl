@@ -42,36 +42,30 @@ Calls `null_preserve_rows_marginals` on `A'`.
 
 
 *source:*
-[Brim/src/permutations.jl:129](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:131](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
 <a id="method__null_preserve_marginals.1" class="lexicon_definition"></a>
 #### null_preserve_marginals(A::Array{Int64, 2}) [¶](#method__null_preserve_marginals.1)
 
-Performs 2x2 swaps of a matrix by preserving the marginal totals (degree of the
-network). The product of the matrix size (rows x columns) divided by four, times
-100, is used as a number of swaps. If this number is less than 30000, then the
-model performs 30000 swaps.
+Performs 30000 2x2 swaps of a matrix by preserving the marginal totals (degree of the
+network).
 
 
 *source:*
-[Brim/src/permutations.jl:72](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:70](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
 <a id="method__null_preserve_rows_marginals.1" class="lexicon_definition"></a>
 #### null_preserve_rows_marginals(A::Array{Int64, 2}) [¶](#method__null_preserve_rows_marginals.1)
 
-Performs 2x2 swaps of a matrix by preserving the marginal totals of ROWS only.
-The product of the matrix size (rows x columns) divided by four, times 100, is
-used as a number of swaps. If this number is less than 30000, then the model
-performs 30000 swaps. The rows marginals are constant, and the returned matrix
-cannot have empty rows or columns.
+Performs 30000 2x2 swaps of a matrix by preserving the marginal totals of ROWS only.
 
 
 *source:*
-[Brim/src/permutations.jl:100](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:98](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 

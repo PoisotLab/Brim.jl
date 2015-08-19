@@ -9,10 +9,6 @@
 Various ways to optimize the modularity of bipartite networks using BRIM in
 `Julia`.
 
-## Log file
-
-**TODO**
-
 ## Interface
 
 There are two types of functions: those to determine the initial community
