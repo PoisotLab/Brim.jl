@@ -18,6 +18,15 @@ CONTRIBUTING.md:
   wget -O $@ https://raw.githubusercontent.com/PoisotLab/PLCG/master/README.md
 ```
 
+## General code of behavior
+
+We follow the [Contributor Covenant][cc] and [The No Asshole Rule][nar].
+An amazing technical or scientific contribution is *no* excuse for creating
+a toxic environment.
+
+[cc]: http://contributor-covenant.org/version/1/2/0/
+[nar]: https://en.wikipedia.org/wiki/The_No_Asshole_Rule
+
 ## Issues
 
 Reporting issues is the simplest and most efficient way to contribute. A useful
@@ -89,7 +98,8 @@ your commits as follow
 | Documentation            |  :page_facing_up:  | :page_facing_up: null models wrapper        |
 | New data                 |    :bar_chart:     | :bar_chart: example pollination network     |
 | Improve performance      |      :clock2:      | :clock2: parallelizes null model by default |
-| Cool new feature         |      :metal:       | :metal: (anything amazing)                  |
+| New feature              |      :metal:       | :metal: (anything amazing)                  |
+| Upcoming release         |      :package:     | :package: v1.0.2                            |
 
 [atom]: https://github.com/atom/atom/blob/master/CONTRIBUTING.md
 
