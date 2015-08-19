@@ -14,5 +14,7 @@ pages:
     - Network roles: intro/roles.md
     - Permutations: intro/permut.md
     - Visualizations: intro/visualization.md
+  - Examples:
+    - Modularity of a large network: examples/kato.md
   - API: api.md
   - How to contribute: contr.md
