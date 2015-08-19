@@ -89,4 +89,6 @@ approx_pval = maximum([sum(expected_q .>= Q(ino_mod))/length(expected_q) 1/lengt
 ```
 
 Note that the p-value cannot be lower than *1/m*, where *m* is the number of
-shuffled matrices tested.
+shuffled matrices tested. In this example, this should return a value *around*
+0.02. This indicates that the modular structure of this network, although not
+strong, is a significant deviation from the random expectation.
