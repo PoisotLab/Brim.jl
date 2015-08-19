@@ -39,31 +39,8 @@ sense to use the code in a parallel context:
 Qs = pmap(qoptim, [eye(Int64, 100) for i=1:100])
 ~~~
 
-## Currently implemented
 
-Functions for initial module assignment accept a two-dimensional array as input,
-and return a `Modular` object. Function for modularity optimization accept
-a `Modular` object as input and return this object after the optimization
-was applied.
 
-### Initial module assignment
-
-- `partition_random`, attributes all nodes to a module at random (good default, especially for networks with less than 50/50 species)
-- `partition_lp`, uses asynchronous label propagation to estimate the starting partition (good only for large networks)
-- `partition_single`, each node is its own label (good default if you assume a lot of modules)
-
-### Modularity optimization
-
-- `recursive_brim!`, recursive BRIM, as in the **xxx** paper
-
-### Modularity value
-
-- `Q`, bipartite modularity
-- `Qr`, realized bipartite modularity, as in **xxx**
-
-### Module roles
-
-* `network_roles`, measures the within-module z-score and the among-module c-score
 
 ## Graphics
 
