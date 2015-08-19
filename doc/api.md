@@ -4,6 +4,25 @@
 
 ---
 
+<a id="method__draw_matrix.1" class="lexicon_definition"></a>
+#### draw_matrix(M::Modular) [¶](#method__draw_matrix.1)
+
+Takes a `Modular` object, and plot it using the *Cairo* driver.
+
+**Keyword arguments:**
+
+- `reorder::Function`, a function to change the order of species (by default, `reorder_by_module!`)
+- `file`: the name of the file to draw in (has to end in `.png`)
+
+Note that the modules are identified by color, using the
+`distinguishable_colors` function from the `Colors` package.
+
+
+*source:*
+[Brim/src/draw_matrix.jl:44](file:///home/tpoisot/.julia/v0.3/Brim/src/draw_matrix.jl)
+
+---
+
 <a id="method__no_empty_modules.1" class="lexicon_definition"></a>
 #### no_empty_modules!(M::Modular) [¶](#method__no_empty_modules.1)
 
@@ -53,6 +72,18 @@ cannot have empty rows or columns.
 
 *source:*
 [Brim/src/permutations.jl:100](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+
+---
+
+<a id="method__reorder_by_module.1" class="lexicon_definition"></a>
+#### reorder_by_module!(M::Modular) [¶](#method__reorder_by_module.1)
+
+Takes a `Modular` object, and reorder it by module. The row / columns of `A` and
+`S` are modified.
+
+
+*source:*
+[Brim/src/draw_matrix.jl:5](file:///home/tpoisot/.julia/v0.3/Brim/src/draw_matrix.jl)
 
 ## Internal
 
@@ -112,3 +143,4 @@ Also, this is a serious lot of documentation in a function that is not exported.
 
 *source:*
 [Brim/src/permutations.jl:38](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+
