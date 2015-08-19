@@ -34,20 +34,21 @@ module TestPermutation
   @test Brim.same_row_marginals(c1, c1) == true
   @test Brim.same_row_marginals(c1, c3) == false
 
-  A = map((x) -> x<0.5?1:0, rand(10, 10))
+  A = [1 1 1 1 1 1; 1 1 1 1 1 0; 1 1 1 1 0 0; 1 1 1 0 0 0; 1 1 0 0 0 0; 1 0 0 0 0 0]
+  B = [1 1 1 0 0 0; 1 1 1 0 0 0; 1 1 1 0 0 0; 0 0 0 1 1 1; 0 0 0 1 1 1; 0 0 0 1 1 1]
 
   # null_preserve_marginals
   @test sum(A) == sum(null_preserve_marginals(A))
-  @test sum(A) == sum(null_preserve_marginals(A))
+  @test sum(B) == sum(null_preserve_marginals(B))
   @test sum(A) == sum(null_preserve_marginals(A))
 
   # null_preserve_rows_marginals
   @test sum(A, 2) == sum(null_preserve_rows_marginals(A), 2)
-  @test sum(A, 2) == sum(null_preserve_rows_marginals(A), 2)
+  @test sum(B, 2) == sum(null_preserve_rows_marginals(B), 2)
   @test sum(A, 2) == sum(null_preserve_rows_marginals(A), 2)
 
   # null_preserve_columns_marginals
-  @test sum(A, 1) == sum(null_preserve_columns_marginals(A), 1)
+  @test sum(B, 1) == sum(null_preserve_columns_marginals(B), 1)
   @test sum(A, 1) == sum(null_preserve_columns_marginals(A), 1)
   @test sum(A, 1) == sum(null_preserve_columns_marginals(A), 1)
 
