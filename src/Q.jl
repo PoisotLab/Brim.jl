@@ -1,3 +1,6 @@
+"""
+Measures Q
+"""
 function Q(M::Modular)
    m = sum(M.A)
    B = M.A - kron(sum(M.A, 1), sum(M.A, 2)) ./ m
@@ -13,6 +16,16 @@ function Q(M::Modular)
    return inner_sum / m
 end
 
+"""
+Measures Qr'
+
+Qr' is the proportion of arvs established between nodes belonging to the same
+modules. Values of Qr' below 0 indicate that there are *more* arcs between than
+within modules.
+
+Poisot T. An a posteriori measure of network modularity. *F1000Research* 2013,
+2:130, `10.12688/f1000research.2-130.v3`.
+"""
 function Qr(M::Modular)
    m = sum(M.A)
    within = 0

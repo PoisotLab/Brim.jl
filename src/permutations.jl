@@ -1,15 +1,3 @@
-function no_empty_rows(A::Array{Int64, 2})
-  return prod(sum(A, 2)) > 0
-end
-
-function no_empty_columns(A::Array{Int64, 2})
-  return prod(sum(A, 1)) > 0
-end
-
-function same_row_marginals(A::Array{Int64, 2}, B::Array{Int64, 2})
-  return sum(A, 2) == sum(B, 2)
-end
-
 """
 Checks that the matrix is swapable under constrained permutations, i.e. one of
 the two conformations called c1 and c2.
@@ -64,15 +52,15 @@ function free_swap(A::Array{Int64, 2})
 end
 
 """
-Performs 2x2 swaps of a matrix by preserving the marginal totals (degree of the
-network). The product of the matrix size (rows x columns) divided by four, times
-100, is used as a number of swaps. If this number is less than 30000, then the
-model performs 30000 swaps.
+Performs 30000 2x2 swaps of a matrix by preserving the marginal totals (degree of the
+network).
 """
 function null_preserve_marginals(A::Array{Int64, 2})
-  nswaps = int(maximum([prod(size(A))/4 * 100, 30000.0]))
+  Logging.info("swap total margins started")
+  nswaps = 30000
   dswaps = 0 # Done swaps
   tswaps = 0 # Attempted swaps
+  START_TIME = time()
   while dswaps < nswaps
     tswaps += 1
     rows = StatsBase.sample(1:size(A,1), 2, replace=false)
@@ -82,25 +70,25 @@ function null_preserve_marginals(A::Array{Int64, 2})
       dswaps += 1
       A[rows,cols] = constrained_swap(A[rows,cols])
     end
-    # Logging every 1000 attempts
-    if tswaps % 1000 == 0
-      Logging.info("SWAP MARGINS A:", tswaps, " D:", dswaps)
+    # Logging every 2 minutes (or so)
+    if time() - START_TIME >= 120
+      Logging.info("swap total margins progress -- tried ", tswaps, " and kept ", dswaps)
+      START_TIME = time()
     end
   end
+  Logging.info("swap total margins finished")
   return A
 end
 
 """
-Performs 2x2 swaps of a matrix by preserving the marginal totals of ROWS only.
-The product of the matrix size (rows x columns) divided by four, times 100, is
-used as a number of swaps. If this number is less than 30000, then the model
-performs 30000 swaps. The rows marginals are constant, and the returned matrix
-cannot have empty rows or columns.
+Performs 30000 2x2 swaps of a matrix by preserving the marginal totals of ROWS only.
 """
 function null_preserve_rows_marginals(A::Array{Int64, 2})
-  nswaps = int(maximum([prod(size(A))/4 * 100, 30000.0]))
+  Logging.info("swap partial margins started")
+  nswaps = 30000
   dswaps = 0 # Done swaps
   tswaps = 0 # Attempted swaps
+  START_TIME = time()
   while dswaps < nswaps
     tswaps += 1
     rows = StatsBase.sample(1:size(A,1), 2, replace=false)
@@ -115,11 +103,13 @@ function null_preserve_rows_marginals(A::Array{Int64, 2})
         dswaps += 1
       end
     end
-    # Logging every 1000 attempts
-    if tswaps % 1000 == 0
-      Logging.info("SWAP ROWS A:", tswaps, " D:", dswaps)
+    # Logging every 2 minutes
+    if time() - START_TIME >= 120
+      Logging.info("swap partial margins progress -- tried ", tswaps, " and kept ", dswaps)
+      START_TIME = time()
     end
   end
+  Logging.info("swap partial margins finished")
   return A
 end
 
@@ -127,5 +117,6 @@ end
 Calls `null_preserve_rows_marginals` on `A'`.
 """
 function null_preserve_columns_marginals(A::Array{Int64, 2})
+  Logging.info("swap partial margins will work on columns")
   return null_preserve_rows_marginals(A')'
 end

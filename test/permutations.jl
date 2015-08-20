@@ -34,7 +34,7 @@ module TestPermutation
   @test Brim.same_row_marginals(c1, c1) == true
   @test Brim.same_row_marginals(c1, c3) == false
 
-  A = map((x) -> x<0.5?1:0, rand(10, 10))
+  A = [1 1 1 0 0 0; 1 1 1 0 0 0; 1 1 1 0 0 0; 0 0 0 1 1 1; 0 0 0 1 1 1; 0 0 0 1 1 1]
 
   # null_preserve_marginals
   @test sum(A) == sum(null_preserve_marginals(A))

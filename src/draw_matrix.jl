@@ -1,3 +1,7 @@
+"""
+Takes a `Modular` object, and reorder it by module. The row / columns of `A` and
+`S` are modified.
+"""
 function reorder_by_module!(M::Modular)
   nA = zeros(M.A)
   nS = zeros(M.S)
@@ -26,6 +30,17 @@ function reorder_by_module!(M::Modular)
   M.S = nS
 end
 
+"""
+Takes a `Modular` object, and plot it using the *Cairo* driver.
+
+**Keyword arguments:**
+
+- `reorder::Function`, a function to change the order of species (by default, `reorder_by_module!`)
+- `file`: the name of the file to draw in (has to end in `.png`)
+
+Note that the modules are identified by color, using the
+`distinguishable_colors` function from the `Colors` package.
+"""
 function draw_matrix(M::Modular; reorder::Function = reorder_by_module!, file="modular.png")
   reorder(M)
   number_modules = size(M.S)[2]
@@ -33,17 +48,17 @@ function draw_matrix(M::Modular; reorder::Function = reorder_by_module!, file="m
   nbot, ntop = size(M.A)
   width  = 4 + nbot*(10+4)
   height = 4 + ntop*(10+4)
-  ## Initialize device
+  # Initialize device
   c = CairoRGBSurface(width, height)
   cr = CairoContext(c)
   save(cr)
-  ## Background
+  # Background
   set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0)
   rectangle(cr, 0.0, 0.0, float(width), float(height))
   fill(cr)
   restore(cr)
   save(cr)
-  ## Draw the blocks
+  # Draw the blocks
   for top in 1:ntop
     for bot in 1:nbot
       if M.A[bot,top] > 0
