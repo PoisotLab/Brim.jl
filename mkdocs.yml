@@ -9,13 +9,14 @@ markdown_extensions:
 pages:
   - Introduction: index.md
   - User manual:
+    - Overview: intro/interface.md
     - Initial partition: intro/partitions.md
     - Optimization and measure: intro/optimize.md
     - Network roles: intro/roles.md
     - Permutations: intro/permut.md
     - Visualizations: intro/visualization.md
   - Examples:
-    - Modularity of a large network: examples/kato.md
-    - Permutations: examples/inouyepike.md
+    - Measuring modularity: examples/kato.md
+    - Permutations for significance testing: examples/inouyepike.md
   - API: api.md
   - How to contribute: contr.md

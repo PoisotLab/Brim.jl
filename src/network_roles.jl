@@ -1,6 +1,14 @@
+"""
+Measure the roles of the species in a network (given as a `Modular` object),
+according to two parameters. *z* is the z-score of the degree within a modules
+(which species connect *within* their modules). *c* is the degree across
+networks (which species connect different networks).
+
+The result is given as a `data.frame` object.
+"""
 function network_roles(M::Modular)
    roles = zeros(Float64, (sum(size(M.A)), 2))
-   ## Step 1 -- measure of z
+   # Step 1 -- measure of z
    for m in 1:size(M.S)[2]
       blues = M.S[[1:size(M.A)[2]],m]
       reds = M.S[[size(M.A)[2]+[1:size(M.A)[1]]],m]
@@ -16,7 +24,7 @@ function network_roles(M::Modular)
       idx = [1:size(M.S)[1]][append!(vec(blues.==1),vec(reds.==1))]
       roles[idx,1] = z
    end
-   ## Step 2 -- measure of c
+   # Step 2 -- measure of c
    nr, nc = size(M.A)
    for col = 1:nc
       k = sum(M.A, 1)[col]

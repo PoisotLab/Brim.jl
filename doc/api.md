@@ -23,6 +23,22 @@ Note that the modules are identified by color, using the
 
 ---
 
+<a id="method__network_roles.1" class="lexicon_definition"></a>
+#### network_roles(M::Modular) [¶](#method__network_roles.1)
+
+Measure the roles of the species in a network (given as a `Modular` object),
+according to two parameters. *z* is the z-score of the degree within a modules
+(which species connect *within* their modules). *c* is the degree across
+networks (which species connect different networks).
+
+The result is given as a `data.frame` object.
+
+
+*source:*
+[Brim/src/network_roles.jl:9](file:///home/tpoisot/.julia/v0.3/Brim/src/network_roles.jl)
+
+---
+
 <a id="method__no_empty_modules.1" class="lexicon_definition"></a>
 #### no_empty_modules!(M::Modular) [¶](#method__no_empty_modules.1)
 
@@ -42,7 +58,7 @@ Calls `null_preserve_rows_marginals` on `A'`.
 
 
 *source:*
-[Brim/src/permutations.jl:131](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:140](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -54,7 +70,7 @@ network).
 
 
 *source:*
-[Brim/src/permutations.jl:70](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:79](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -65,7 +81,7 @@ Performs 30000 2x2 swaps of a matrix by preserving the marginal totals of ROWS o
 
 
 *source:*
-[Brim/src/permutations.jl:98](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:107](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -84,6 +100,33 @@ modularity, measured with `Q`.
 
 *source:*
 [Brim/src/partition_lp.jl:11](file:///home/tpoisot/.julia/v0.3/Brim/src/partition_lp.jl)
+
+---
+
+<a id="method__partition_random.1" class="lexicon_definition"></a>
+#### partition_random(A::Array{Int64, 2}) [¶](#method__partition_random.1)
+
+Create a random partition for a matrix `A`. Each node is assigned to a module at
+random. If the smallest dimension of the matrix is *m*, there will be between 1
+and *m* modules.
+
+This method tends to work well for small to medium networks (and is faster than
+`partition_lp`).
+
+
+*source:*
+[Brim/src/partition_random.jl:9](file:///home/tpoisot/.julia/v0.3/Brim/src/partition_random.jl)
+
+---
+
+<a id="method__partition_single.1" class="lexicon_definition"></a>
+#### partition_single(A::Array{Int64, 2}) [¶](#method__partition_single.1)
+
+Every node is in its own module.
+
+
+*source:*
+[Brim/src/partition_single.jl:4](file:///home/tpoisot/.julia/v0.3/Brim/src/partition_single.jl)
 
 ---
 
@@ -108,7 +151,7 @@ Performs a constrained swap: the marginals are conserved.
 
 
 *source:*
-[Brim/src/permutations.jl:47](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:56](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -120,7 +163,7 @@ the two conformations called c1 and c2.
 
 
 *source:*
-[Brim/src/permutations.jl:17](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:26](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -132,7 +175,7 @@ Perfoms a free swap: the matrix cells are shuffled. The marginals are not
 
 
 *source:*
-[Brim/src/permutations.jl:62](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:71](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -154,5 +197,38 @@ Also, this is a serious lot of documentation in a function that is not exported.
 
 
 *source:*
-[Brim/src/permutations.jl:38](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:47](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+
+---
+
+<a id="method__no_empty_columns.1" class="lexicon_definition"></a>
+#### no_empty_columns(A::Array{Int64, 2}) [¶](#method__no_empty_columns.1)
+
+Check that there are no empty columns in a matrix.
+
+
+*source:*
+[Brim/src/permutations.jl:11](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+
+---
+
+<a id="method__no_empty_rows.1" class="lexicon_definition"></a>
+#### no_empty_rows(A::Array{Int64, 2}) [¶](#method__no_empty_rows.1)
+
+Check that there are no empty rows in a matrix.
+
+
+*source:*
+[Brim/src/permutations.jl:4](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+
+---
+
+<a id="method__same_row_marginals.1" class="lexicon_definition"></a>
+#### same_row_marginals(A::Array{Int64, 2}, B::Array{Int64, 2}) [¶](#method__same_row_marginals.1)
+
+Check that two matrices have the same degree distributions.
+
+
+*source:*
+[Brim/src/permutations.jl:18](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 

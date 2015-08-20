@@ -1,3 +1,11 @@
+"""
+Create a random partition for a matrix `A`. Each node is assigned to a module at
+random. If the smallest dimension of the matrix is *m*, there will be between 1
+and *m* modules.
+
+This method tends to work well for small to medium networks (and is faster than
+`partition_lp`).
+"""
 function partition_random(A::Array{Int64, 2})
   Logging.info("starting random partition")
   # Smaller margin of A determines the number of modules

@@ -7,7 +7,7 @@ machine, then `julia -p 3` is fine. This will not give excellent scaling because
 there is some overhead when using a small number of cores, but it will still cut
 the computing time.
 
-Brim has to be loaded on all worked, so it should be imported with
+Brim has to be loaded on all workers, so it should be imported with
 
 ```julia
 @everywhere using Brim
