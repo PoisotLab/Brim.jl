@@ -1,25 +1,4 @@
 """
-Check that there are no empty rows in a matrix.
-"""
-function no_empty_rows(A::Array{Int64, 2})
-  return prod(sum(A, 2)) > 0
-end
-
-"""
-Check that there are no empty columns in a matrix.
-"""
-function no_empty_columns(A::Array{Int64, 2})
-  return prod(sum(A, 1)) > 0
-end
-
-"""
-Check that two matrices have the same degree distributions.
-"""
-function same_row_marginals(A::Array{Int64, 2}, B::Array{Int64, 2})
-  return sum(A, 2) == sum(B, 2)
-end
-
-"""
 Checks that the matrix is swapable under constrained permutations, i.e. one of
 the two conformations called c1 and c2.
 """
