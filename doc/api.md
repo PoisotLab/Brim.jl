@@ -4,6 +4,35 @@
 
 ---
 
+<a id="method__q.1" class="lexicon_definition"></a>
+#### Q(M::Modular) [¶](#method__q.1)
+
+Measures Q
+
+
+*source:*
+[Brim/src/Q.jl:4](file:///home/tpoisot/.julia/v0.3/Brim/src/Q.jl)
+
+---
+
+<a id="method__qr.1" class="lexicon_definition"></a>
+#### Qr(M::Modular) [¶](#method__qr.1)
+
+Measures Qr'
+
+Qr' is the proportion of arvs established between nodes belonging to the same
+modules. Values of Qr' below 0 indicate that there are *more* arcs between than
+within modules.
+
+Poisot T. An a posteriori measure of network modularity. *F1000Research* 2013,
+2:130, `10.12688/f1000research.2-130.v3`.
+
+
+*source:*
+[Brim/src/Q.jl:29](file:///home/tpoisot/.julia/v0.3/Brim/src/Q.jl)
+
+---
+
 <a id="method__draw_matrix.1" class="lexicon_definition"></a>
 #### draw_matrix(M::Modular) [¶](#method__draw_matrix.1)
 
@@ -58,7 +87,7 @@ Calls `null_preserve_rows_marginals` on `A'`.
 
 
 *source:*
-[Brim/src/permutations.jl:140](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:119](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -70,7 +99,7 @@ network).
 
 
 *source:*
-[Brim/src/permutations.jl:79](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:58](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -81,7 +110,7 @@ Performs 30000 2x2 swaps of a matrix by preserving the marginal totals of ROWS o
 
 
 *source:*
-[Brim/src/permutations.jl:107](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:86](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -130,6 +159,17 @@ Every node is in its own module.
 
 ---
 
+<a id="method__recursive_brim.1" class="lexicon_definition"></a>
+#### recursive_brim!(M::Modular) [¶](#method__recursive_brim.1)
+
+Recursive Brim
+
+
+*source:*
+[Brim/src/recursive_brim.jl:4](file:///home/tpoisot/.julia/v0.3/Brim/src/recursive_brim.jl)
+
+---
+
 <a id="method__reorder_by_module.1" class="lexicon_definition"></a>
 #### reorder_by_module!(M::Modular) [¶](#method__reorder_by_module.1)
 
@@ -144,6 +184,17 @@ Takes a `Modular` object, and reorder it by module. The row / columns of `A` and
 
 ---
 
+<a id="method__bestpart.1" class="lexicon_definition"></a>
+#### bestPart!(Target::Array{Int64, 2}, Scores::Array{Float64, 2}) [¶](#method__bestpart.1)
+
+Returns the best partition (used within recursive_brim)
+
+
+*source:*
+[Brim/src/recursive_brim.jl:32](file:///home/tpoisot/.julia/v0.3/Brim/src/recursive_brim.jl)
+
+---
+
 <a id="method__constrained_swap.1" class="lexicon_definition"></a>
 #### constrained_swap(A::Array{Int64, 2}) [¶](#method__constrained_swap.1)
 
@@ -151,7 +202,7 @@ Performs a constrained swap: the marginals are conserved.
 
 
 *source:*
-[Brim/src/permutations.jl:56](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:35](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -163,7 +214,7 @@ the two conformations called c1 and c2.
 
 
 *source:*
-[Brim/src/permutations.jl:26](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:5](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -175,7 +226,7 @@ Perfoms a free swap: the matrix cells are shuffled. The marginals are not
 
 
 *source:*
-[Brim/src/permutations.jl:71](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:50](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -197,7 +248,7 @@ Also, this is a serious lot of documentation in a function that is not exported.
 
 
 *source:*
-[Brim/src/permutations.jl:47](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/permutations.jl:26](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
 
 ---
 
@@ -208,7 +259,7 @@ Check that there are no empty columns in a matrix.
 
 
 *source:*
-[Brim/src/permutations.jl:11](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/common.jl:22](file:///home/tpoisot/.julia/v0.3/Brim/src/common.jl)
 
 ---
 
@@ -219,7 +270,7 @@ Check that there are no empty rows in a matrix.
 
 
 *source:*
-[Brim/src/permutations.jl:4](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+[Brim/src/common.jl:15](file:///home/tpoisot/.julia/v0.3/Brim/src/common.jl)
 
 ---
 
@@ -230,5 +281,4 @@ Check that two matrices have the same degree distributions.
 
 
 *source:*
-[Brim/src/permutations.jl:18](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
-
+[Brim/src/common.jl:29](file:///home/tpoisot/.julia/v0.3/Brim/src/common.jl)

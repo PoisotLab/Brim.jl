@@ -1,8 +1,7 @@
+"""
+Recursive Brim
+"""
 function recursive_brim!(M::Modular)
-  #=
-  Recursive BRIM as in Barber
-  =#
-
   # -2- R and T sub-matrices
   n_rows, n_cols = size(M.A)
   m = sum(M.A)
@@ -27,6 +26,9 @@ function recursive_brim!(M::Modular)
   return M
 end
 
+"""
+Returns the best partition (used within recursive_brim)
+"""
 function bestPart!(Target::Array{Int64, 2}, Scores::Array{Float64, 2})
   best_scores = maximum(Scores, 2)
   @inbounds for i = 1:size(Target)[1]
