@@ -1,5 +1,3 @@
-## Graphics
-
 Using the `draw_matrix` function, which takes a `Modular` object as
 input. Currently very minimal, links from the same module are in color, each
 module has it own color, arcs between nodes from different modules are in grey.

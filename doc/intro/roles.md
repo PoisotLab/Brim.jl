@@ -1,4 +1,5 @@
-* `network_roles`, measures the within-module z-score and the among-module c-score
+The `network_roles` function measures the within-module z-score and the
+among-module c-score.
 
 ``` julia
 using Brim

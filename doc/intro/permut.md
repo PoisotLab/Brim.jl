@@ -2,8 +2,6 @@ The `Brim` package offers a (currently limited) way to do significance testing
 using permutations with null models. Events during the permutation process are
 logged every two minutes.
 
-### Interface
-
 For example, the following lines will first measure modularity on the original
 data, then measure modularity on a permutation of `A` with the same number of
 ones.
@@ -22,7 +20,7 @@ enforces the equality of rows marginals (same thing for `s/row/column/`). It may
 take longer to run because this routine introduces the possibility of emptying
 rows or columns, in which case the swapping step is not valid.
 
-### Example
+**Example:**
 
 ``` julia
 A = map((x) -> x<0.2?1:0, rand(80, 90))
