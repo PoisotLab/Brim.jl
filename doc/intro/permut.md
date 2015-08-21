@@ -20,6 +20,9 @@ enforces the equality of rows marginals (same thing for `s/row/column/`). It may
 take longer to run because this routine introduces the possibility of emptying
 rows or columns, in which case the swapping step is not valid.
 
+A final null model (`null_preserve_fill`) only conserves the matrix *fill*: the
+number of arcs are kept, but not the marginals.
+
 **Example:**
 
 ``` julia

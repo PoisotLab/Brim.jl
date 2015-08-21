@@ -99,7 +99,7 @@ function null_preserve_rows_marginals(A::Array{Int64, 2})
       B = copy(A) # NOTE this may not be optimal because it moves potentially large objects in memory
       B[rows,cols] = subA
       if no_empty_rows(B) & no_empty_columns(B) & same_row_marginals(A, B)
-        A = copy(B)
+        A[rows,cols] = subA
         dswaps += 1
       end
     end
@@ -119,4 +119,37 @@ Calls `null_preserve_rows_marginals` on `A'`.
 function null_preserve_columns_marginals(A::Array{Int64, 2})
   Logging.info("swap partial margins will work on columns")
   return null_preserve_rows_marginals(A')'
+end
+
+"""
+Performs 30000 2x2 swaps of a matrix by preserving the fill only.
+"""
+function null_preserve_fill(A::Array{Int64, 2})
+  Logging.info("swap fill started")
+  nswaps = 30000
+  dswaps = 0 # Done swaps
+  tswaps = 0 # Attempted swaps
+  START_TIME = time()
+  while dswaps < nswaps
+    tswaps += 1
+    rows = StatsBase.sample(1:size(A,1), 2, replace=false)
+    cols = StatsBase.sample(1:size(A,2), 2, replace=false)
+    # Only if the submatrix is swapable do we actually swap it
+    if free_swapable(A[rows,cols])
+      subA = free_swap(A[rows,cols])
+      B = copy(A) # NOTE this may not be optimal because it moves potentially large objects in memory
+      B[rows,cols] = subA
+      if no_empty_rows(B) & no_empty_columns(B)
+        A[rows,cols] = subA # NOTE this avoids copying B back into A
+        dswaps += 1
+      end
+    end
+    # Logging every 2 minutes
+    if time() - START_TIME >= 120
+      Logging.info("swap fill progress -- tried ", tswaps, " and kept ", dswaps)
+      START_TIME = time()
+    end
+  end
+  Logging.info("swap fill finished")
+  return A
 end
