@@ -54,7 +54,7 @@ module TestPermutation
   # null_preserve_fill
   X = null_preserve_fill(A)
   @test sum(A) == sum(X)
-  @test no_empty_rows(X)
-  @test no_empty_columns(X)
+  @test Brim.no_empty_rows(X)
+  @test Brim.no_empty_columns(X)
 
 end
