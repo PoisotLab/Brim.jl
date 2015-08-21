@@ -56,6 +56,7 @@ Performs 30000 2x2 swaps of a matrix by preserving the marginal totals (degree o
 network).
 """
 function null_preserve_marginals(A::Array{Int64, 2})
+  X = copy(A)
   Logging.info("swap total margins started")
   nswaps = 30000
   dswaps = 0 # Done swaps
@@ -63,12 +64,12 @@ function null_preserve_marginals(A::Array{Int64, 2})
   START_TIME = time()
   while dswaps < nswaps
     tswaps += 1
-    rows = StatsBase.sample(1:size(A,1), 2, replace=false)
-    cols = StatsBase.sample(1:size(A,2), 2, replace=false)
+    rows = StatsBase.sample(1:size(X,1), 2, replace=false)
+    cols = StatsBase.sample(1:size(X,2), 2, replace=false)
     # Only if the submatrix is swapable do we actually swap it
-    if constrained_swapable(A[rows,cols])
+    if constrained_swapable(X[rows,cols])
       dswaps += 1
-      A[rows,cols] = constrained_swap(A[rows,cols])
+      X[rows,cols] = constrained_swap(X[rows,cols])
     end
     # Logging every 2 minutes (or so)
     if time() - START_TIME >= 120
@@ -77,13 +78,14 @@ function null_preserve_marginals(A::Array{Int64, 2})
     end
   end
   Logging.info("swap total margins finished")
-  return A
+  return X
 end
 
 """
 Performs 30000 2x2 swaps of a matrix by preserving the marginal totals of ROWS only.
 """
 function null_preserve_rows_marginals(A::Array{Int64, 2})
+  X = copy(A)
   Logging.info("swap partial margins started")
   nswaps = 30000
   dswaps = 0 # Done swaps
@@ -91,15 +93,15 @@ function null_preserve_rows_marginals(A::Array{Int64, 2})
   START_TIME = time()
   while dswaps < nswaps
     tswaps += 1
-    rows = StatsBase.sample(1:size(A,1), 2, replace=false)
-    cols = StatsBase.sample(1:size(A,2), 2, replace=false)
+    rows = StatsBase.sample(1:size(X,1), 2, replace=false)
+    cols = StatsBase.sample(1:size(X,2), 2, replace=false)
     # Only if the submatrix is swapable do we actually swap it
-    if free_swapable(A[rows,cols])
-      subA = free_swap(A[rows,cols])
-      B = copy(A) # NOTE this may not be optimal because it moves potentially large objects in memory
-      B[rows,cols] = subA
-      if no_empty_rows(B) & no_empty_columns(B) & same_row_marginals(A, B)
-        A[rows,cols] = subA
+    if free_swapable(X[rows,cols])
+      subX = free_swap(X[rows,cols])
+      Y = copy(X) # NOTE this may not be optimal because it moves potentially large objects in memory
+      Y[rows,cols] = subX
+      if no_empty_rows(Y) & no_empty_columns(Y) & same_row_marginals(X, Y)
+        X[rows,cols] = subX
         dswaps += 1
       end
     end
@@ -110,7 +112,7 @@ function null_preserve_rows_marginals(A::Array{Int64, 2})
     end
   end
   Logging.info("swap partial margins finished")
-  return A
+  return X
 end
 
 """
@@ -125,6 +127,7 @@ end
 Performs 30000 2x2 swaps of a matrix by preserving the fill only.
 """
 function null_preserve_fill(A::Array{Int64, 2})
+  X = copy(A)
   Logging.info("swap fill started")
   nswaps = 30000
   dswaps = 0 # Done swaps
@@ -132,15 +135,15 @@ function null_preserve_fill(A::Array{Int64, 2})
   START_TIME = time()
   while dswaps < nswaps
     tswaps += 1
-    rows = StatsBase.sample(1:size(A,1), 2, replace=false)
-    cols = StatsBase.sample(1:size(A,2), 2, replace=false)
+    rows = StatsBase.sample(1:size(X,1), 2, replace=false)
+    cols = StatsBase.sample(1:size(X,2), 2, replace=false)
     # Only if the submatrix is swapable do we actually swap it
-    if free_swapable(A[rows,cols])
-      subA = free_swap(A[rows,cols])
-      B = copy(A) # NOTE this may not be optimal because it moves potentially large objects in memory
-      B[rows,cols] = subA
-      if no_empty_rows(B) & no_empty_columns(B)
-        A[rows,cols] = subA # NOTE this avoids copying B back into A
+    if free_swapable(X[rows,cols])
+      subX = free_swap(X[rows,cols])
+      Y = copy(X) # NOTE this may not be optimal because it moves potentially large objects in memory
+      Y[rows,cols] = subX
+      if no_empty_rows(Y) & no_empty_columns(Y)
+        X[rows,cols] = subX # NOTE this avoids copying B back into A
         dswaps += 1
       end
     end
@@ -151,5 +154,5 @@ function null_preserve_fill(A::Array{Int64, 2})
     end
   end
   Logging.info("swap fill finished")
-  return A
+  return X
 end
