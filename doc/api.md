@@ -91,6 +91,17 @@ Calls `null_preserve_rows_marginals` on `A'`.
 
 ---
 
+<a id="method__null_preserve_fill.1" class="lexicon_definition"></a>
+#### null_preserve_fill(A::Array{Int64, 2}) [¶](#method__null_preserve_fill.1)
+
+Performs 30000 2x2 swaps of a matrix by preserving the fill only.
+
+
+*source:*
+[Brim/src/permutations.jl:127](file:///home/tpoisot/.julia/v0.3/Brim/src/permutations.jl)
+
+---
+
 <a id="method__null_preserve_marginals.1" class="lexicon_definition"></a>
 #### null_preserve_marginals(A::Array{Int64, 2}) [¶](#method__null_preserve_marginals.1)
 
@@ -282,3 +293,4 @@ Check that two matrices have the same degree distributions.
 
 *source:*
 [Brim/src/common.jl:29](file:///home/tpoisot/.julia/v0.3/Brim/src/common.jl)
+
