@@ -7,4 +7,4 @@
 [![Documentation Status](https://readthedocs.org/projects/brimjl/badge/?version=latest)](https://readthedocs.org/projects/brimjl/?badge=latest)
 
 Various ways to optimize the modularity of bipartite networks using BRIM in
-`Julia`. General purpose, but mostly used for biological/ecological datasets.
+`Julia`. General purpose, but mostly used for biological and ecological datasets.
