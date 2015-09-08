@@ -6,5 +6,6 @@
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16579.svg)](http://dx.doi.org/10.5281/zenodo.16579)
 [![Documentation Status](https://readthedocs.org/projects/brimjl/badge/?version=latest)](https://readthedocs.org/projects/brimjl/?badge=latest)
 
-Various ways to optimize the modularity of bipartite networks using BRIM in
-`Julia`. General purpose, but mostly used for biological and ecological datasets.
+This package offers ways to optimize the modularity of bipartite networks using
+BRIM in `Julia`. It should be reasonably general purpose, but has only be used
+for biological and ecological datasets so far.
