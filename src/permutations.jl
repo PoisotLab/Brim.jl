@@ -33,7 +33,7 @@ end
 Performs a constrained swap: the marginals are conserved.
 """
 function constrained_swap(A::Array{Int64, 2})
-  # TODO checks
+  @assert size(A) == (2, 2)
   const c1 = [1 0; 0 1]
   const c2 = [0 1; 1 0]
   if A == c2
@@ -48,6 +48,7 @@ Perfoms a free swap: the matrix cells are shuffled. The marginals are not
 (necessarily) conserved.
 """
 function free_swap(A::Array{Int64, 2})
+  @assert size(A) == (2, 2)
   return reshape(A[shuffle([1, 2, 3, 4])], (2, 2))
 end
 

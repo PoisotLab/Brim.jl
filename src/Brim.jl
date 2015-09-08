@@ -2,7 +2,7 @@ module Brim
 
 # Dependencies
 using Cairo
-using Color
+using Colors
 using DataFrames
 using Logging
 Logging.configure(output=open("brim.log", "a"), level=INFO)
