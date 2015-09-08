@@ -1,6 +1,6 @@
 julia 0.3
 Cairo
-Color 0.2.10-
+Colors
 DataFrames
 Lexicon
 Logging
