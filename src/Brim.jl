@@ -7,8 +7,6 @@ using DataFrames
 
 using StatsBase
 
-VERSION < v"0.4-dev" && import Lexicon
-
 # Exports
 export Modular,
        Q,
