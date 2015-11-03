@@ -9,7 +9,6 @@ The optimization stops when any label propagation fails to increase the
 modularity, measured with `Q`.
 """
 function partition_lp(A::Array{Int64, 2})
-  Logging.info("LP partition started")
   nr, nc = size(A)
   min_part = minimum(size(A))
   S = eye(Int64, sum(size(A)))
@@ -46,7 +45,6 @@ function partition_lp(A::Array{Int64, 2})
     old_Q = new_Q
     new_Q = Q(M)
   end
-  Logging.info("LP partition finished")
   no_empty_modules!(M)
   return M
 end

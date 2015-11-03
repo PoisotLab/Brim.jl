@@ -4,8 +4,6 @@ module Brim
 using Cairo
 using Colors
 using DataFrames
-using Logging
-Logging.configure(output=open("brim.log", "a"), level=INFO)
 
 using StatsBase
 
