@@ -4,7 +4,6 @@ module Brim
 using Cairo
 using Colors
 using DataFrames
-
 using StatsBase
 
 # Exports
