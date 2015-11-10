@@ -4,12 +4,8 @@ module Brim
 using Cairo
 using Colors
 using DataFrames
-using Logging
-Logging.configure(output=open("brim.log", "a"), level=INFO)
 
 using StatsBase
-
-VERSION < v"0.4-dev" && import Lexicon
 
 # Exports
 export Modular,

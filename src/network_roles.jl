@@ -10,7 +10,7 @@ function network_roles(M::Modular)
    roles = zeros(Float64, (sum(size(M.A)), 2))
    # Step 1 -- measure of z
    for m in 1:size(M.S)[2]
-      blues = M.S[[1:size(M.A)[2]],m]
+      blues = M.S[collect(1:size(M.A)[2]),m]
       reds = M.S[[size(M.A)[2]+[1:size(M.A)[1]]],m]
       mod_only = M.A[vec(reds.==1),vec(blues.==1)]
       degree_seq = append!(vec(sum(mod_only, 1)), vec(sum(mod_only, 2)))
@@ -48,7 +48,7 @@ function network_roles(M::Modular)
       c = 1-sum((km./k).^2)
       roles[(nc+row),2] = c
    end
-   roles_df = DataFrame(id = append!([1:nc], [1:nr]),
+   roles_df = DataFrame(id = append!(collect(1:nc), collect(1:nr)),
                         margin = append!(rep("col", nc), rep("row", nr)),
                         z = roles[:,1],
                         c = roles[:,2]

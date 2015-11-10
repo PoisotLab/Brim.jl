@@ -3,8 +3,8 @@ module TestNoEmptyModules
    using Base.Test
    using Brim
 
-   A = [[1 0 0], [0 1 0], [0 0 1]]
-   S = [[1 0 0], [0 1 0], [0 1 0]]
+   A = [1 0 0; 0 1 0; 0 0 1]
+   S = [1 0 0; 0 1 0; 0 1 0]
 
    M = no_empty_modules!(Modular(A, S))
 

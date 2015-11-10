@@ -58,7 +58,6 @@ network).
 """
 function null_preserve_marginals(A::Array{Int64, 2})
   X = copy(A)
-  Logging.info("swap total margins started")
   nswaps = 30000
   dswaps = 0 # Done swaps
   tswaps = 0 # Attempted swaps
@@ -72,13 +71,12 @@ function null_preserve_marginals(A::Array{Int64, 2})
       dswaps += 1
       X[rows,cols] = constrained_swap(X[rows,cols])
     end
-    # Logging every 2 minutes (or so)
+
     if time() - START_TIME >= 120
-      Logging.info("swap total margins progress -- tried ", tswaps, " and kept ", dswaps)
       START_TIME = time()
     end
   end
-  Logging.info("swap total margins finished")
+
   return X
 end
 
@@ -87,7 +85,6 @@ Performs 30000 2x2 swaps of a matrix by preserving the marginal totals of ROWS o
 """
 function null_preserve_rows_marginals(A::Array{Int64, 2})
   X = copy(A)
-  Logging.info("swap partial margins started")
   nswaps = 30000
   dswaps = 0 # Done swaps
   tswaps = 0 # Attempted swaps
@@ -106,13 +103,12 @@ function null_preserve_rows_marginals(A::Array{Int64, 2})
         dswaps += 1
       end
     end
-    # Logging every 2 minutes
+
     if time() - START_TIME >= 120
-      Logging.info("swap partial margins progress -- tried ", tswaps, " and kept ", dswaps)
       START_TIME = time()
     end
   end
-  Logging.info("swap partial margins finished")
+
   return X
 end
 
@@ -120,7 +116,6 @@ end
 Calls `null_preserve_rows_marginals` on `A'`.
 """
 function null_preserve_columns_marginals(A::Array{Int64, 2})
-  Logging.info("swap partial margins will work on columns")
   return null_preserve_rows_marginals(A')'
 end
 
@@ -129,7 +124,7 @@ Performs 30000 2x2 swaps of a matrix by preserving the fill only.
 """
 function null_preserve_fill(A::Array{Int64, 2})
   X = copy(A)
-  Logging.info("swap fill started")
+
   nswaps = 30000
   dswaps = 0 # Done swaps
   tswaps = 0 # Attempted swaps
@@ -148,12 +143,11 @@ function null_preserve_fill(A::Array{Int64, 2})
         dswaps += 1
       end
     end
-    # Logging every 2 minutes
+
     if time() - START_TIME >= 120
-      Logging.info("swap fill progress -- tried ", tswaps, " and kept ", dswaps)
       START_TIME = time()
     end
   end
-  Logging.info("swap fill finished")
+
   return X
 end

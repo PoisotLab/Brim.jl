@@ -2,8 +2,8 @@ module TestNetworkRoles
    using Base.Test
    using Brim
    #=testdir = dirname(@__FILE__)=#
-   A = [[1 0 0], [1 1 0], [0 1 1], [0 1 1]]
-   S = [[1 0], [0 1], [0 1], [1 0], [1 0], [0 1], [0 1]]
+   A = [1 0 0; 1 1 0; 0 1 1; 0 1 1]
+   S = [1 0; 0 1; 0 1; 1 0; 1 0; 0 1; 0 1]
    M = Modular(A, S)
    roles = network_roles(M)
    ## Approximate values, calculated by hand
