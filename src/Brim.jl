@@ -5,7 +5,6 @@ using Cairo
 using Colors
 using DataFrames
 using StatsBase
-using Graphs
 
 # Exports
 export Modular,
